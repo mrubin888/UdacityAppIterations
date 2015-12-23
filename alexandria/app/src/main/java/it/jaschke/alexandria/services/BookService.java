@@ -44,6 +44,7 @@ public class BookService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.d(LOG_TAG, "onHandleIntent: ");
         if (intent != null) {
             final String action = intent.getAction();
             if (FETCH_BOOK.equals(action)) {
@@ -71,6 +72,8 @@ public class BookService extends IntentService {
      * parameters.
      */
     private void fetchBook(String ean) {
+
+        Log.d(LOG_TAG, "fetchBook: ");
 
         if(ean.length()!=13){
             return;
@@ -129,7 +132,7 @@ public class BookService extends IntentService {
             }
             bookJsonString = buffer.toString();
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Error ", e);
+            Log.e(LOG_TAG, "Error0 ", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -155,6 +158,12 @@ public class BookService extends IntentService {
         final String CATEGORIES = "categories";
         final String IMG_URL_PATH = "imageLinks";
         final String IMG_URL = "thumbnail";
+
+        if (bookJsonString == null) {
+            return;
+        }
+
+        Log.d(LOG_TAG, "fetchBook: " + bookJsonString);
 
         try {
             JSONObject bookJson = new JSONObject(bookJsonString);
@@ -197,7 +206,7 @@ public class BookService extends IntentService {
             }
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "Error ", e);
+            Log.e(LOG_TAG, "Error1 ", e);
         }
     }
 
