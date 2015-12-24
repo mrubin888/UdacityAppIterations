@@ -30,6 +30,7 @@ public class PagerFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.pager_fragment, container, false);
         mPagerHandler = (ViewPager) rootView.findViewById(R.id.pager);
+
         mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         for (int i = 0;i < NUM_PAGES;i++)
         {
@@ -40,6 +41,11 @@ public class PagerFragment extends Fragment
         }
         mPagerHandler.setAdapter(mPagerAdapter);
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
+
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) rootView.findViewById(R.id.pager_header);
+        int currItem = mPagerHandler.getCurrentItem();
+        CharSequence pageTitle = mPagerAdapter.getPageTitle(currItem);
+        pagerTabStrip.setContentDescription(pageTitle);
 
         return rootView;
     }

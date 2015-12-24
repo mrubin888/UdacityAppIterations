@@ -60,6 +60,7 @@ public class scoresAdapter extends CursorAdapter
         LayoutInflater vi = (LayoutInflater) context.getApplicationContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = vi.inflate(R.layout.detail_fragment, null);
+        v.setContentDescription(cursor.getString(COL_HOME) + " versus " + cursor.getString(COL_AWAY));
         ViewGroup container = (ViewGroup) view.findViewById(R.id.details_fragment_container);
         if(mHolder.match_id == detail_match_id)
         {
